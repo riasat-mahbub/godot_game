@@ -13,8 +13,15 @@ func make_dungeon():
 	$dungeon.make_map();
 	$player.position = $dungeon.start_room.position;
 	$player.stuck = true;
+	
+	#delete the loading screen
+	$loading_screen.queue_free();
+
 
 func _ready():
+	#make loading screen fill the viewport
+	$loading_screen.scale= get_viewport_rect().size;
+	
 	make_dungeon();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
