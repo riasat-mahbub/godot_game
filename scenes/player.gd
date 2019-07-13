@@ -16,8 +16,17 @@ const SIZE = 32;
 func _ready():
 	pass # Replace with function body.
 
+func _physics_process(delta):
+	
+	#mouse direction
+	var m_dir = get_global_mouse_position() - global_position;
+	
+	rotation = m_dir.angle();
+
 func _process(delta):
+	#velocity
 	var velocity = Vector2();
+	
 	if Input.is_action_pressed("ui_up"):
 		velocity.y+=1;
 	if Input.is_action_pressed("ui_down"):
@@ -29,8 +38,8 @@ func _process(delta):
 	
 	velocity *= (SPEED*SIZE);
 	
-	
-	var collider = move_and_collide(velocity*delta);
+	#move player using keys
+	var collider = move_and_collide(velocity*delta); 
 	
 	if collider and stuck:
 		position.x += SIZE;
