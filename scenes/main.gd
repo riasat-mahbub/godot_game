@@ -1,5 +1,6 @@
 extends Node2D
 
+var current_level;
 
 #func to make a dungeon
 func make_dungeon():
@@ -14,7 +15,7 @@ func make_dungeon():
 	$dungeon.make_rooms();
 	
 	#after some time delete some rooms
-	yield(get_tree().create_timer(0.5), 'timeout');
+	yield(get_tree().create_timer(1.5), 'timeout');
 	$dungeon.cull_rooms();
 	
 	#add an extra frame 
@@ -43,6 +44,9 @@ func destroy_dungeon():
 
 
 func _ready():
+	#always start at level 1
+	current_level = 1;
+	
 	#make loading screen fill the viewport
 	$loading_screen.scale= get_viewport_rect().size;
 	
