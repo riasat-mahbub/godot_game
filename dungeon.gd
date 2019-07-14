@@ -39,6 +39,7 @@ func make_rooms():
 		pos.x = rand_range(-HSPREAD, HSPREAD);
 		pos.y = rand_range(-VSPREAD, VSPREAD);
 		r.make_room(pos, Vector2(width,height) * TILE_SIZE );
+		
 		add_child(r);
 
 #func to find the starting room
@@ -49,7 +50,16 @@ func find_start_room():
 		if room.position.x < min_x:
 			min_x = room.position.x;
 			start_room = room;
-		
+
+
+#func to find the last room
+func find_end_room():
+	var max_x = -INF;
+	
+	for room in get_children():
+		if room.position.x > max_x:
+			max_x = room.position.x;
+			end_room = room;
 
 #func to make a map of room
 func make_map():
@@ -59,7 +69,7 @@ func make_map():
 	
 	#find start and end rooms
 	find_start_room();
-	
+	find_end_room();
 	
 	#find whole area
 	var full_rect = Rect2();
@@ -131,7 +141,6 @@ func carve_cor(pos1, pos2):
 	
 	#carve all the corridors in x axis
 	for i in range(pos1.x, pos2.x, x_dif):
-		print(i);
 		Map.set_cell(i, x_y.y, 1);
 		Map.set_cell(i, x_y.y+y_dif, 1);
 		
